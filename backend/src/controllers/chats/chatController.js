@@ -30,14 +30,14 @@ const accessChats=async (req,res)=>{
 
         if (isChat.length > 0) {
             res.send(isChat[0]);
-            console.log("Here is Chat ",isChat[0]);
+            // console.log("Here is Chat ",isChat[0]);
           } else {
             var chatData = {
               chatName: "sender",
               isGroupChat: false,
               users: [req.user._id, userId],
             };
-            console.log(chatData);
+            // console.log(chatData);
         
             try {
               const createdChat = await Chat.create(chatData);
@@ -45,7 +45,7 @@ const accessChats=async (req,res)=>{
                 "users",
                 "-password"
               );
-              console.log("Chat Created",FullChat);
+            //   console.log("Chat Created",FullChat);
               res.status(200).json(FullChat);
             } catch (error) {
               res.status(400);
@@ -74,7 +74,7 @@ const fetchingChats=async (req,res)=>{
                     path:"latestMessage.sender",
                     select:"name pic email"
                 });
-                console.log(results);
+                // console.log(results);
             return res.status(201).send(results);
         })
     } catch (error) {
@@ -206,7 +206,7 @@ const addToTheGroup=async (req,res)=>{
         //save this change to db
 
         const {userId,chatId}=req.body 
-        console.log(req.body);
+        // console.log(req.body);
         const addedChat=await Chat.findByIdAndUpdate(
             chatId,
             {
@@ -220,7 +220,7 @@ const addToTheGroup=async (req,res)=>{
         )
         .populate("users","-password")
         .populate("groupAdmin","-password")
-        console.log(addedChat);
+        // console.log(addedChat);
 
         if(!addedChat)
         {
